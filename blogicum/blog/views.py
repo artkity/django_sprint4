@@ -147,8 +147,9 @@ def delete_comment(request, post_id, comment_id):
     comment = get_object_or_404(Comment, id=comment_id, author=request.user)
     if request.method == 'POST':
         comment.delete()
-    return redirect('blog:post_detail', post_id=post_id)
-
+        return redirect('blog:post_detail', post_id=post_id)
+    # GET – показываем страницу подтверждения
+    return render(request, 'blog/comment.html', {'comment': comment, 'delete': True})
 
 @login_required
 def edit_profile(request):
